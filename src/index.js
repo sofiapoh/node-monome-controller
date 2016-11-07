@@ -5,7 +5,7 @@ var create2DArray = require('./helpers/array.js');
 // TODO: Make into an object so you can call start and stop on it so it wont
 // loop eternally...
 
-module.exports = function (turnCallback, interval) {
+module.exports = function (turnScript, interval) {
   serialosc.on('device:add', function (device) {
 
     //init
@@ -14,7 +14,7 @@ module.exports = function (turnCallback, interval) {
 
     // loop
     setInterval(function(){
-      model = turnCallback(model);
+      model = turnScript(model);
       refresh(model, device);
     }, interval);
 

@@ -4,7 +4,8 @@
   "description": "Web interface for controlling Monome ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "main": "nodemon src/index.js",
+    "random": "nodemon src/run_random.js",
     "test": "tape test/index.js | tnyan"
   },
   "repository": {
