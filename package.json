@@ -1,0 +1,32 @@
+{
+  "name": "monome-web",
+  "version": "1.0.0",
+  "description": "Web interface for controlling Monome ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "tape test/index.js | tnyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sofiapoh/monome-web.git"
+  },
+  "keywords": [
+    "monome",
+    "node"
+  ],
+  "author": "Sofia Pohjalainen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sofiapoh/monome-web/issues"
+  },
+  "homepage": "https://github.com/sofiapoh/monome-web#readme",
+  "dependencies": {
+    "monome-grid": "0.0.6",
+    "serialosc": "0.0.8"
+  },
+  "devDependencies": {
+    "tap-nyan": "0.0.2",
+    "tape": "^4.6.2"
+  }
+}
