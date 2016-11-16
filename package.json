@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "main": "nodemon src/index.js",
-    "random": "nodemon src/run_random.js",
+    "script": "nodemon src/run_script.js",
     "test": "tape test/index.js | tnyan"
   },
   "repository": {

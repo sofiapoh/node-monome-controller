@@ -1,4 +1,9 @@
-module.exports = function(model) {
+module.exports = {
+  run: randomStep,
+  defaultInterval: 500,
+};
+
+function randomStep(model) {
   var newModel = [];
   for (var r = 0; r < model.length; r++) {
     newModel[r] = [];
@@ -7,4 +12,4 @@ module.exports = function(model) {
     }
   }
   return newModel;
-};
+}
