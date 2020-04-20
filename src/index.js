@@ -1,43 +1,63 @@
-var serialosc = require('serialosc');
-var refresh = require('./helpers/refresh.js');
-var create2DArray = require('./helpers/array.js');
+const serialosc = require("serialosc");
+const { create2DArray } = require("./helpers/array");
 
-// TODO: Make into an object so you can call start and stop on it so it wont
-// loop eternally...
+class Controller {
+  constructor(config) {
+    this.interval = config.interval || 500;
+    this.keypressPause = config.keypressPause || 500;
+    this.device = undefined;
+    this.grid = undefined;
+  }
 
-module.exports = function (script, interval) {
-  serialosc.on('device:add', function (device) {
+  //TODO: Toggle mode => editing mode
 
-    //init
-    var model = create2DArray(device.sizeX, device.sizeY, 0);
-    refresh(model, device);
-
-    var pause = 0;
-
-
-    device.on('key', function (data) {
-      if (data['s'] === 0){
-        return;
-      }
-      pause = 1000;
-      var currentValue = model[data['y']][data['x']];
-      var newValue = currentValue == 1 ? 0 : 1;
-      model[data['y']][data['x']] = newValue;
-      data['s'] = newValue;
-      device.set(data);
+  initialize = () => {
+    serialosc.on("device:add", (device) => {
+      this.device = device;
+      this.grid = create2DArray(device.sizeX, device.sizeY, 0);
+      console.log("Grid initialized 🔲");
+      // set up initial empty grid
+      this.syncronize(this.grid);
     });
+    serialosc.start();
+  };
 
+  syncronize = (grid) => {
+    if (!this.device) {
+      return;
+    }
 
-    // loop
-    setInterval(function(){
-      if (pause > 0){
-        pause -=interval;
+    for (let yOffset = 0; yOffset < this.device.sizeY; yOffset += 8) {
+      for (let xOffset = 0; xOffset < this.device.sizeX; xOffset += 8) {
+        const LEDMap = [];
+        for (let y = yOffset; y < yOffset + 8; y++) {
+          for (let x = xOffset; x < xOffset + 8; x++) {
+            if (!LEDMap[y - yOffset]) {
+              LEDMap[y - yOffset] = [];
+            }
+            LEDMap[y - yOffset][x - xOffset] = grid[y][x];
+          }
+        }
+
+        this.device.map(xOffset, yOffset, LEDMap);
+      }
+    }
+  };
+
+  //TODO: this only updates the model, no looping to be done in the controller
+  // Playback mode goes into the controller app
+
+  startLoop = (script) => {
+    setInterval(() => {
+      if (this.keypressPause > 0) {
+        this.keypressPause -= this.interval;
         return;
       }
-      model = script(model);
-      refresh(model, device);
-    }, interval);
 
-  });
-  serialosc.start();
-};
+      this.grid = script(this.grid);
+      this.syncronize(this.grid);
+    }, this.interval);
+  };
+}
+
+module.exports = { Controller };

@@ -5,7 +5,6 @@ module.exports = {
 
 
 function oneByOne (model) {
-  console.log(model);
   var newModel = [];
   for (var r = 0; r < model.length; r++) {
     newModel[r] = [];

@@ -1,4 +1,4 @@
-module.exports = function create2DArray(cols, rows, value) {
+function create2DArray(cols, rows, value) {
   var arr = [];
   for (var r = 0; r < rows; r++) {
     arr[r] = [];
@@ -7,4 +7,6 @@ module.exports = function create2DArray(cols, rows, value) {
     }
   }
   return arr;
-};
+}
+
+module.exports = { create2DArray };

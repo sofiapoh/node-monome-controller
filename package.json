@@ -1,11 +1,11 @@
 {
-  "name": "monome-web",
+  "name": "monome-controller",
   "version": "1.0.0",
   "description": "Web interface for controlling Monome ",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "main": "nodemon src/index.js",
-    "script": "nodemon src/run_script.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "tape test/index.js | tnyan"
   },
   "repository": {
@@ -22,9 +22,11 @@
     "url": "https://github.com/sofiapoh/monome-web/issues"
   },
   "homepage": "https://github.com/sofiapoh/monome-web#readme",
+  "prettier": {
+    "trailingComma": "es5"
+  },
   "dependencies": {
-    "monome-grid": "0.0.6",
-    "serialosc": "0.0.8"
+    "serialosc": "^1.0.0"
   },
   "devDependencies": {
     "tap-nyan": "0.0.2",

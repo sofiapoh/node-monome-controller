@@ -1,6 +1,6 @@
-var test = require('tape');
-var create2DArray = require('../src/helpers/array.js');
-var getNeighbourCoords = require('../src/scripts/conway.js').get_neighbour_coords;
+const test = require('tape'); 
+const { create2DArray } = require('../src/helpers/array.js');
+const { getNeighbourCoords } =  require('../src/scripts/conway.js');
 
 test('Creates a 2D array', function (t){
   t.plan(1);

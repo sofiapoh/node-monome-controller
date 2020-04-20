@@ -1,11 +1,3 @@
-module.exports = {
-  run: conwayStep,
-  defaultInterval: 300,
-  getNeighbourCoords: getNeighbourCoords,
-};
-
-
-
 function isAlive(grid, x, y) {
   return Boolean(grid[y] && grid[y][x]);
 }
@@ -22,7 +14,6 @@ function getNeighbourCoords(x, y){
     [x+1, y+1], // bottom right
   ];
 }
-
 
 function countLivePixels(grid, coordsList) {
   return coordsList.map( function(coords){
@@ -56,3 +47,9 @@ function conwayStep(grid){
   });
   return newGrid;
 }
+
+module.exports = {
+  run: conwayStep,
+  defaultInterval: 300,
+  getNeighbourCoords: getNeighbourCoords,
+};
